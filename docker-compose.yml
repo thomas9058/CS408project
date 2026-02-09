@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    container_name: django_hello_web
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+    command: python manage.py runserver 0.0.0.0:8000
+
+  test:
+    build: .
+    container_name: django_hello_test
+    volumes:
+      - .:/app
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+    command: pytest -q
+
+  debug:
+    build: .
+    container_name: django_hello_debug
+    ports:
+      - "8000:8000"
+      - "5678:5678"
+    volumes:
+      - .:/app
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
+    # debugpy listens on 0.0.0.0:5678, then starts Django
+    command: python -m debugpy --listen 0.0.0.0:5678 --wait-for-client manage.py runserver 0.0.0.0:8000
