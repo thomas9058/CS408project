@@ -70,10 +70,11 @@ cmd_install() {
 
   echo "✔ App is running"
   echo "Open:"
-  if [ "${VM_HOST:-localhost}" = "localhost" ]; then
-    echo "  http://127.0.0.1:8000/"
+  public_ip="$(curl -s https://checkip.amazonaws.com || true)"
+  if [ -n "$public_ip" ]; then
+    echo "  http://${public_ip}:8000/"
   else
-    echo "  http://${VM_HOST}:8000/"
+    echo "  http://127.0.0.1:8000/"
   fi
 }
 
