@@ -72,7 +72,7 @@ cmd_install() {
   echo "Open:"
   public_ip="$(curl -s https://checkip.amazonaws.com || true)"
   if [ -n "$public_ip" ]; then
-    echo "  http://${public_ip}:8000/"
+    echo "  http://${public_ip}/"
   else
     echo "  http://127.0.0.1:8000/"
   fi
