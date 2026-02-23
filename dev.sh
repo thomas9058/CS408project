@@ -63,7 +63,7 @@ cmd_build() {
 cmd_install() {
   load_env
   echo "🚀 Starting containers..."
-  docker compose up -d --remove-orphans
+  docker compose up -d --remove-orphans web
 
   echo "🗄 Running migrations..."
   docker compose exec web python manage.py migrate
